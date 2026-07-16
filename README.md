@@ -1,2 +1,2 @@
 # GustinCdtRepo
-Segundo site, mas agora foi atualizado, para um aprimorado 
+Nosso segundo site, mas com alguns aprimoramentos. E adicionando o repositorio mais Git $ Github.

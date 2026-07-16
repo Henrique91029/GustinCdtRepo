@@ -1,0 +1,316 @@
+:root {
+    --bg-color: #0d0d11;
+    --card-bg: #13131a;
+    --accent-purple: #a855f7;
+    --neon-glow: #bf55ec;
+    --text-color: #ffffff;
+    --text-secondary: #94a3b8;
+    /* Novas cores para substituir o dourado/amarelo */
+    --steel-gray: #475569;
+    --light-gray: #cbd5e1;
+    --dark-slate: #1e293b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    background-image: radial-gradient(circle at 50% 10%, #2e1065 0%, var(--bg-color) 70%);
+}
+
+/* Botão Flutuante do Administrador */
+.admin-gear-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: rgba(19, 19, 26, 0.7);
+    border: 1px solid #2e2e3e;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 4;
+    transition: 0.3s;
+}
+
+.admin-gear-btn:hover {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 10px var(--neon-glow);
+    transform: rotate(45deg);
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-purple);
+    box-shadow: 0 0 20px var(--neon-glow);
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px var(--neon-glow);
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.btn-link {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--card-bg);
+    border: 1px solid #2e2e3e;
+    border-radius: 8px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.btn-link:hover {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-garage { background: linear-gradient(45deg, #1e1b4b, var(--card-bg)); }
+
+/* Botão da Loja: Mudado de Amarelo para Cinza Escuro Metálico com borda Roxa no Hover */
+.btn-shop { 
+    background: linear-gradient(45deg, var(--dark-slate), var(--card-bg)); 
+    border-color: var(--steel-gray); 
+}
+.btn-shop:hover { 
+    border-color: var(--accent-purple); 
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); 
+}
+
+/* MODAIS GERAIS */
+#fade, #success-fade {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 5;
+    transition: 0.3s ease;
+}
+#success-fade { z-index: 15; }
+
+#modal-garage, #modal-shop, #modal-admin {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background-color: var(--card-bg);
+    border: 1px solid #2e2e3e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    z-index: 10;
+    transition: 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.modal-header h2 { font-size: 1.3rem; }
+#modal-garage h2 { color: var(--accent-purple); }
+#modal-shop h2 { color: var(--light-gray); text-shadow: 0 0 5px rgba(255, 255, 255, 0.1); }
+#modal-admin h2 { color: #38bdf8; }
+
+#close-garage-btn, #close-shop-btn, #close-admin-btn {
+    background: none; border: none; color: var(--text-secondary); font-size: 1.8rem; cursor: pointer;
+}
+#close-garage-btn:hover, #close-shop-btn:hover, #close-admin-btn:hover { color: #fff; }
+
+.modal-subtitle { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem; }
+
+/* Ocultando modais */
+#fade.hide, #modal-garage.hide, #modal-shop.hide, #modal-admin.hide, #success-fade.hide, #success-alert.hide {
+    opacity: 0; pointer-events: none;
+}
+
+.form-group { margin-bottom: 1rem; text-align: left; }
+.form-row { display: flex; gap: 1rem; width: 100%; }
+.size-small { flex: 1; }
+.size-large { flex: 2; }
+label { display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.4rem; }
+
+input[type="text"], input[type="number"], textarea, select, input[type="file"] {
+    width: 100%; padding: 0.7rem; background-color: #0d0d11; border: 1px solid #3f3f46; border-radius: 6px; color: #fff; font-size: 0.9rem; outline: none;
+}
+
+select {
+    cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%2394a3b8' d='M0 0l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat; background-position: right 0.7rem center;
+}
+select option { background-color: var(--card-bg); color: #fff; }
+input:focus, textarea:focus, select:focus { border-color: var(--accent-purple); }
+
+.btn-submit {
+    width: 100%; padding: 0.85rem; background: linear-gradient(45deg, #7c3aed, var(--accent-purple)); border: none; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; margin-top: 0.5rem;
+}
+.btn-submit:hover { box-shadow: 0 0 10px var(--neon-glow); }
+
+/* VITRINE DA LOJA */
+.empty-shop-message { text-align: center; padding: 2rem 1rem; color: var(--text-secondary); }
+.empty-shop-message .icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
+
+.shop-card {
+    background-color: #0d0d11; border: 1px solid #2e2e3e; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.shop-card h3 { color: #fff; font-size: 1.1rem; }
+
+/* Preço modificado para cinza claro destacado */
+.shop-card .price { color: var(--light-gray); font-weight: bold; font-size: 1.2rem; text-shadow: 0 0 5px rgba(255, 255, 255, 0.1); }
+
+/* Botão de comprar: Mudado de amarelo para Roxo Neon para combinar com o tema */
+.shop-card .buy-btn {
+    display: inline-block; text-align: center; background-color: var(--accent-purple); color: #fff; padding: 0.5rem; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: 0.2s;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+}
+.shop-card .buy-btn:hover { 
+    background-color: var(--neon-glow); 
+    box-shadow: 0 0 15px var(--neon-glow);
+}
+
+/* TÍTULOS DIVISORES DE CATEGORIAS NA VITRINE */
+.shop-section-title {
+    font-size: 1.1rem;
+    color: #fff;
+    text-align: left;
+    margin: 1.5rem 0 0.8rem 0;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px dashed #3f3f46;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* REPOSITÓRIO ADMIN LIST */
+.admin-card-row {
+    display: flex; justify-content: space-between; align-items: center; background: #0d0d11; padding: 0.6rem; border-radius: 6px; border: 1px solid #2e2e3e; margin-bottom: 0.5rem; font-size: 0.85rem;
+}
+.del-btn { background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+
+/* QUADRO DE AVISOS */
+.announcements-section {
+    background-color: var(--card-bg); border: 1px solid #2e2e3e; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; text-align: left; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.announcements-section h2 {
+    font-size: 1.2rem; color: var(--text-color); margin-bottom: 1rem; text-align: center; border-bottom: 1px solid #2e2e3e; padding-bottom: 0.5rem;
+}
+.announcement-card { background-color: #0d0d11; border-left: 4px solid var(--accent-purple); border-radius: 4px; padding: 0.85rem; margin-bottom: 1rem; }
+.announcement-card:last-child { margin-bottom: 0; }
+.announcement-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; }
+.announcement-card .badge { display: inline-block; font-size: 0.65rem; font-weight: bold; padding: 0.15rem 0.4rem; border-radius: 3px; margin-bottom: 0.4rem; }
+.announcement-card.info { border-left-color: var(--accent-purple); }
+.announcement-card.info .badge { background-color: rgba(168, 85, 247, 0.2); color: var(--accent-purple); }
+.announcement-card.alert { border-left-color: #ef4444; }
+.announcement-card.alert .badge { background-color: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+/* POP-UP SUCESSO */
+#success-alert {
+    position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 400px; background-color: #110d16; border: 2px solid var(--accent-purple); box-shadow: 0 0 25px rgba(168, 85, 247, 0.5); border-radius: 12px; padding: 2.5rem 1.5rem; z-index: 20; text-align: center; transition: 0.3s ease;
+}
+.success-icon { font-size: 2.8rem; margin-bottom: 0.5rem; animation: pulse 1.5s infinite alternate; }
+#success-alert h2 { color: #fff; text-shadow: 0 0 10px var(--neon-glow); font-size: 1.4rem; margin-bottom: 0.8rem; }
+#success-alert p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem; }
+.success-btn { background: linear-gradient(45deg, #7c3aed, var(--accent-purple)) !important; }
+
+@keyframes pulse { from { transform: scale(1); } to { transform: scale(1.1); } }
+
+/* PUBLICIDADE */
+.ad-container { width: 100%; max-width: 468px; margin: 1.5rem auto; text-align: center; }
+.ad-label { display: block; font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.2rem; }
+.ad-placeholder { background-color: var(--card-bg); border: 1px dashed #3f3f46; color: var(--text-secondary); border-radius: 6px; padding: 1rem; font-size: 0.8rem; min-height: 60px; display: flex; align-items: center; justify-content: center; }
+.ad-top { margin-top: 0; margin-bottom: 2rem; }
+.ad-bottom { margin-top: 2rem; margin-bottom: 0; }
+
+/* ESTILO DO MODAL DE LOGIN ADMINISTRATIVO */
+#modal-login {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    background-color: var(--card-bg);
+    /* Borda alterada de amarelo para cinza escuro metálico */
+    border: 1px solid var(--steel-gray);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
+    border-radius: 12px;
+    padding: 1.5rem;
+    z-index: 10;
+    transition: 0.3s ease;
+}
+
+#modal-login.hide {
+    opacity: 0; pointer-events: none;
+}
+
+#modal-login .form-group input {
+    width: 100%; 
+    padding: 0.7rem; 
+    background-color: #0d0d11; 
+    border: 1px solid #3f3f46; 
+    border-radius: 6px; 
+    color: #fff;
+}
+
+/* Hover do botão de login agora brilha em roxo */
+#login-submit-btn:hover {
+    box-shadow: 0 0 15px var(--neon-glow);
+    background: linear-gradient(45deg, #7c3aed, var(--accent-purple));
+    transform: scale(1.02);
+}
+
+#close-login-btn {
+    background: none; border: none; color: var(--text-secondary); font-size: 1.8rem; cursor: pointer;
+}
+#close-login-btn:hover { color: #fff; }

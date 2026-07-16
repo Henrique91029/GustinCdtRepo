@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gustin_cdt | Oficial</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="img/logo1.png" type="image/x-icon">
+    <!-- Código do AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8239842841648323" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- Scripts do Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+    <!-- BOTÃO DISCRETO DO PAINEL ADM -->
+    <button id="admin-trigger-btn" class="admin-gear-btn" title="Painel do Administrador">⚙️</button>
+
+    <!-- ESPAÇO PARA ANÚNCIO (TOPO) -->
+    <div class="ad-container ad-top">
+        <span class="ad-label">Publicidade</span>
+        <div class="ad-placeholder">Espaço Reservado para Banner (468x60)</div>
+    </div>
+
+    <div class="container">
+        <!-- Perfil principal -->
+        <img src="img/cee7b24b8a89e85e84339f3663f149bf~tplv-tiktokx-cropcenter_1080_1080.jpeg" alt="Foto de perfil do gustin_cdt" class="profile-img">
+        <h1>@gustin_cdt</h1>
+        <p class="subtitle">Bem-vindo ao meu canto oficial</p>
+
+        <!-- Links das Redes Sociais e Botões -->
+        <div class="links-container">
+            <a href="https://discord.com/channels/@me" target="_blank" class="btn-link">💬 Meu Discord</a>
+            <a href="https://www.roblox.com/pt/users/2935803603/profile" target="_blank" class="btn-link">🎮 Perfil no Roblox</a>
+            <a href="https://www.tiktok.com/@gustin_cdt" target="_blank" class="btn-link">🎵 Siga-me no TikTok</a>
+            
+            <!-- Botão da Loja -->
+            <button id="open-shop-btn" class="btn-link btn-shop">💲 Comprar Tokens & Carros</button>
+            
+            <!-- Botão da Garagem -->
+            <button id="open-garage-btn" class="btn-link btn-garage">🚗 Garagem de Despedida</button>
+        </div>
+
+        <!-- QUADRO DE AVISOS -->
+        <div class="announcements-section">
+            <h2>📢 Avisos & Diretrizes</h2>
+            <div class="announcement-card info">
+                <span class="badge">IMPORTANTE</span>
+                <p>Os anúncios enviados na Garagem de Despedida passam por análise antes de serem validados no servidor. Evite dados falsos.</p>
+            </div>
+            <div class="announcement-card alert">
+                <span class="badge">REGRAS</span>
+                <p>Respeite os valores justos do jogo comercializados na comunidade. Não toleramos nenhum tipo de golpe ou fraude.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ESPAÇO PARA ANÚNCIO (RODAPÉ) -->
+    <div class="ad-container ad-bottom">
+        <span class="ad-label">Publicidade</span>
+        <div class="ad-placeholder">Espaço Reservado para Banner (468x60)</div>
+    </div>
+
+    <!-- FADE ESCURO PARA OS MODAIS -->
+    <div id="fade" class="hide"></div>
+
+    <!-- TELA FLUTUANTE (MODAL) DE LOGIN DO ADMINISTRADOR -->
+    <div id="modal-login" class="hide">
+        <div class="modal-header">
+            <h2 style="color: #eab308;">🔒 Login Administrativo</h2>
+            <button id="close-login-btn">&times;</button>
+        </div>
+        <p class="modal-subtitle">Insira suas credenciais cadastradas no Firebase.</p>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-email">E-mail do Administrador:</label>
+                <input type="email" id="login-email" placeholder="seu-email@exemplo.com" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Senha:</label>
+                <input type="password" id="login-password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-submit" id="login-submit-btn" style="background: linear-gradient(45deg, #eab308, #facc15); color: #000;">Entrar no Painel</button>
+        </form>
+    </div>
+
+    <!-- TELA FLUTUANTE (MODAL) DA GARAGEM DE DESPEDIDA -->
+    <div id="modal-garage" class="hide">
+        <div class="modal-header">
+            <h2>🚗 Garagem de Despedida</h2>
+            <button id="close-garage-btn">&times;</button>
+        </div>
+        <p class="modal-subtitle">Está parando de jogar? Envie os dados do seu carro abaixo.</p>
+
+        <form id="garage-form">
+            <div class="form-group">
+                <label for="player-name">Seu Nome/Nick no Jogo:</label>
+                <input type="text" id="player-name" placeholder="Ex: gustin_cdt" required>
+            </div>
+            <div class="form-group">
+                <label for="contact-method">Por onde prefere que eu entre em contato?</label>
+                <select id="contact-method" required>
+                    <option value="" disabled selected>Escolha uma opção...</option>
+                    <option value="Discord">💬 Discord</option>
+                    <option value="Instagram">📸 Instagram</option>
+                    <option value="WhatsApp">📞 WhatsApp</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="player-contact">Digite o seu @ ou número de contato:</label>
+                <input type="text" id="player-contact" placeholder="Ex: @seu_usuario ou (11) 99999-9999" required>
+            </div>
+            <div class="form-group">
+                <label for="car-model">Modelo do Carro:</label>
+                <input type="text" id="car-model" placeholder="Ex: Nissan Skyline R34" required>
+            </div>
+            <div class="form-group">
+                <label for="car-photo">Foto do Carro:</label>
+                <input type="file" id="car-photo" accept="image/*" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group size-small">
+                    <label for="car-quantity">Qtd:</label>
+                    <input type="number" id="car-quantity" placeholder="Ex: 1" min="1" required>
+                </div>
+                <div class="form-group size-large">
+                    <label for="car-price">Valor (em R$):</label>
+                    <input type="text" id="car-price" placeholder="Ex: R$ 50,00" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="car-notes">Informações Complementares / Mensagem:</label>
+                <textarea id="car-notes" rows="4" placeholder="Detalhes dos upgrades ou mensagem de despedida..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit" id="submit-btn">Anunciar Despedida</button>
+        </form>
+    </div>
+
+    <!-- TELA FLUTUANTE (MODAL) DA LOJA DE TOKENS & CARROS -->
+    <div id="modal-shop" class="hide">
+        <div class="modal-header">
+            <h2>💲 Vitrine de Vendas</h2>
+            <button id="close-shop-btn">&times;</button>
+        </div>
+        <p class="modal-subtitle">Confira os itens disponíveis para compra direta.</p>
+        <div id="shop-items-container"></div>
+    </div>
+
+    <!-- TELA FLUTUANTE (MODAL) DO PAINEL DE ADMINISTRAÇÃO -->
+    <div id="modal-admin" class="hide">
+        <div class="modal-header">
+            <h2>⚙️ Painel do Administrador</h2>
+            <button id="close-admin-btn">&times;</button>
+        </div>
+        <p class="modal-subtitle">Adicione ou remova os produtos visíveis na sua loja.</p>
+        
+        <form id="admin-item-form">
+            <div class="form-group">
+                <label for="admin-item-type">Tipo de Produto:</label>
+                <select id="admin-item-type" required>
+                    <option value="token">🪙 Token / Moedas</option>
+                    <option value="carro">🚗 Carro Exclusivo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="admin-item-name">Nome do Produto:</label>
+                <input type="text" id="admin-item-name" placeholder="Ex: 5.000 Tokens ou BMW 320i Full" required>
+            </div>
+            <div class="form-group">
+                <label for="admin-item-price">Preço:</label>
+                <input type="text" id="admin-item-price" placeholder="Ex: R$ 25,00" >
+            </div>
+            <div class="form-group">
+                <label for="admin-item-link">Link de Contato para Compra:</label>
+                <input type="text" id="admin-item-link" placeholder="Ex: https://discord.com/channels/@me" required>
+            </div>
+            <button type="submit" class="btn-submit" style="background: #eab308; color: #000;">Adicionar à Vitrine</button>
+        </form>
+
+        <hr style="border: 0; border-top: 1px solid #2e2e3e; margin: 1.5rem 0;">
+        <h3 style="font-size: 1rem; margin-bottom: 0.5rem; color: #fff;">Itens Ativos no Site:</h3>
+        <div id="admin-items-list"></div>
+    </div>
+
+    <!-- POP-UP CUSTOMIZADO DE SUCESSO NEON -->
+    <div id="success-fade" class="hide"></div>
+    <div id="success-alert" class="hide">
+        <div class="success-icon">✨</div>
+        <h2>Envio Concluído!</h2>
+        <p>Seu anúncio de despedida foi enviado com sucesso para o nosso servidor do Discord e entrou na fila de análise.</p>
+        <button id="close-success-btn" class="btn-submit success-btn">Fechar Janela</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
